@@ -82,3 +82,47 @@ function removeFalsyValues(obj){
 }
 
 // End Task 5
+
+// Task 6
+// === Динамический this в цепочке методов с callback-функцией ===
+// Есть объект calculator, который имеет методы для выполнения математических операций. 
+// Однако один из методов (power) принимает callback, и внутри него this теряется. 
+// Нужно исправить код так, чтобы все методы работали корректно.
+
+const calculator = {
+  value: 0,
+  add(num) {
+    this.value += num;
+    return this; // Возвращаем this для чейнинга
+  },
+  subtract(num) {
+    this.value -= num;
+    return this;
+  },
+  multiply(num) {
+    this.value *= num;
+    return this;
+  },
+  power(callback) {
+    // Внутри callback this должен ссылаться на calculator
+    callback(); // Как исправить, чтобы this не терялся?
+    return this;
+  },
+  getValue() {
+    return this.value;
+  }
+};
+
+// Пример использования (должно работать):
+const result = calculator
+  .add(5)
+  .subtract(2)
+  .multiply(3)
+  .power(function() {
+    this.value = Math.pow(this.value, 2); // this должен быть calculator
+  }.bind(calculator)) // *= Добавлен метод bind с привязкой к объекту calculator
+  .getValue();
+
+console.log(result); // Ожидается ((5 - 2) * 3)^2 = 81
+
+// End Task 6
