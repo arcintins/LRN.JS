@@ -60,23 +60,23 @@ class myArray {
 }
 
 let arr = new myArray();
-arr.printList();
+arr.printList(); // []
 
 arr.pushEl(1);
 arr.pushEl({});
 arr.pushEl(3);
-arr.printList();
+arr.printList(); // [ 1, {}, 3 ]
 
 arr.deleteEl(2);
-arr.printList();
+arr.printList(); // [ 1, 3 ]
 
 arr.pushEl(10);
 arr.pushEl(false);
 arr.pushEl(undefined);
 arr.pushEl("String");
-arr.printList();
+arr.printList(); // [ 1, 3, 10, false, undefined, 'Jopa' ]
 
 arr.deleteEl(5);
-arr.printList();
+arr.printList(); // [ 1, 3, 10, false, 'String' ]
 
 // End Task 1
