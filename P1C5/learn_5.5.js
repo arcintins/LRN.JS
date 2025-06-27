@@ -170,21 +170,143 @@ console.log( usersMapped[0].fullName ); // Вася Пупкин
 // End Task 8
 
 // Task 9
+// Напишите функцию sortByAge(users), которая принимает массив объектов со свойством age и сортирует их по нему.
+// Например:
+
+let vasya3 = { name: "Вася", age: 25 };
+let petya3 = { name: "Петя", age: 30 };
+let masha3 = { name: "Маша", age: 28 };
+
+let arr4 = [ vasya3, petya3, masha3 ];
+sortByAge(arr4);
+
+// теперь: [vasya, masha, petya]
+console.log(arr4[0].name); // Вася
+console.log(arr4[1].name); // Маша
+console.log(arr4[2].name); // Петя
+
+function sortByAge(users) {
+    users.sort((userA, userB) => userA.age - userB.age);
+}
 
 // End Task 9
 
 // Task 10
+// Напишите функцию shuffle(array), которая перемешивает (переупорядочивает случайным образом) элементы массива.
+// Многократные прогоны через shuffle могут привести к разным последовательностям элементов. Например:
+let arr5 = [1, 2, 3];
+shuffle(arr5);
+shuffle(arr5);
+shuffle(arr5);
 
+function shuffle(array) {
+    let indexes = [...Array(array.length).keys()];
+    let indexesLength = indexes.length;
+
+    let getRandomIndex = () => Math.floor(Math.random() * (indexes.length) + 1);
+
+    for (let i = 0; i < indexesLength; i++) {
+        let [randomIndex1, randomIndex2] = [getRandomIndex(), getRandomIndex()];
+        [array[randomIndex1], array[randomIndex2]] = [array[randomIndex2], array[randomIndex1]];
+        indexesLength--;
+    }
+    // console.log(array);
+}
+
+
+function testChances(){
+    let counter = {};
+    for (let i = 0; i < 1000000; i++){
+        shuffle(arr5)
+        if (!(arr5 in counter)) {counter[arr5] = 1; continue;};
+        counter[arr5] += 1;
+    }
+    console.log(counter);
+}
+
+testChances()
+
+// Примерно равные шансы выходят
+// {
+//   '1,2,3': 165849,
+//   '3,1,2': 166248,
+//   '2,1,3': 166978,
+//   '3,2,1': 166684,
+//   '2,3,1': 166587,
+//   '1,3,2': 167654
+// }
+
+// Все последовательности элементов должны иметь одинаковую вероятность. Например, [1,2,3] 
+// может быть переупорядочено как [1,2,3] или [1,3,2], или [3,1,2] и т.д., с равной вероятностью каждого случая.
 // End Task 10
 
 // Task 11
 
 // End Task 11
+// Напишите функцию getAverageAge(users), которая принимает массив объектов со свойством age и возвращает средний возраст.
+// Формула вычисления среднего арифметического значения: (age1 + age2 + ... + ageN) / N.
+// Например:
+
+let vasya4 = {name: "Вася", age: 25};
+let petya4 = {name: "Петя", age: 30};
+let masha4 = {name: "Маша", age: 29};
+
+let arr6 = [vasya4, petya4, masha4];
+console.log(getAverageAge(arr6)); // (25 + 30 + 29) / 3 = 28
+
+function getAverageAge(users){
+    return users.reduce((sum, user) => {
+        return sum + user.age;
+    }, sum = 0) / users.length;
+}
 
 // Task 12
+// Пусть arr – массив строк.
+// Напишите функцию unique(arr), которая возвращает массив, содержащий только уникальные элементы arr.
+// Например:
+
+function unique(arr) {
+    return Array.from(new Set(arr))
+}
+
+let strings = ["кришна", "кришна", "харе", "харе",
+  "харе", "харе", "кришна", "кришна", ":-O"
+];
+console.log(unique(strings)); // кришна, харе, :-O
 
 // End Task 12
 
 // Task 13
+// Допустим, мы получили массив пользователей в виде {id:..., name:..., age:... }.
+// Создайте функцию groupById(arr), которая создаст из него объект с id в качестве ключа и элементами массива в качестве значений.
+// Например:
+
+let users13 = [
+  {id: 'john', name: "John Smith", age: 20},
+  {id: 'ann', name: "Ann Smith", age: 24},
+  {id: 'pete', name: "Pete Peterson", age: 31},
+];
+
+let usersById = groupById(users13);
+
+function groupById(arr){
+    return arr.reduce((users, user) => {
+        users[user.id] = user;
+        return users;
+    }, users = {});
+}
+
+console.log(usersById)
+/*
+после вызова у нас должно получиться:
+usersById = {
+  john: {id: 'john', name: "John Smith", age: 20},
+  ann: {id: 'ann', name: "Ann Smith", age: 24},
+  pete: {id: 'pete', name: "Pete Peterson", age: 31},
+}
+*/
+// Такая функция очень удобна при работе с данными, которые приходят с сервера.
+// В этой задаче мы предполагаем, что id уникален. Не может быть двух элементов массива с одинаковым id.
+// Используйте метод .reduce в решении.
 
 // End Task 13
