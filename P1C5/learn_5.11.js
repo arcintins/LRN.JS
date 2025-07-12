@@ -112,17 +112,17 @@ function formatDate(){
   let hour = date.getHours();
   let minutes = date.getMinutes();
   let different = (new Date() - date) / 1000;
-  let differentMins = diffSec / 60;
-  let differentHours = diffMin / 60;
+  let differentMins = different / 60;
+  let differentHours = differentMins / 60;
 
   month = month < 10 ? '0' + month : month;
   dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
   hour = hour < 10 ? '0' + hour : hour;
   minutes = minutes < 10 ? '0' + minutes : minutes;
 
-  if (diffSec < 1) return 'прямо сейчас';
-  if (diffMin < 1) return `${diffSec} сек. назад`;
-  if (diffHour < 1) return `${diffMin} мин. назад`;
+  if (different < 1) return 'прямо сейчас';
+  if (differentMins < 1) return `${different} сек. назад`;
+  if (differentHours < 1) return `${differentMins} мин. назад`;
   return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`;
 }
 
